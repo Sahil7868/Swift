@@ -13,7 +13,7 @@ Feel free to view demo [Industrial Revolution Article](http://18.188.193.109).
 * Install and Activate.
 * You will see **Swift Images** on your admin sidebar.
 * Click on **Swift Images** and add title, image and position of the image.
-* upload fix height of images for more responsivness.
+* upload fix height of images for more responsiveness.
 * Publish and add [swift-slide] to any page or post in your wordpress site to view your Image slider.
 
 ### Reason to choose this plugin
