@@ -20,5 +20,6 @@ Feel free to view demo [Industrial Revolution Article](http://18.188.193.109).
 + Smooth performance.
 + Easy to use.
 + Responsive.
++ Hover on any image to pause the slider.
 + Tested.
 
