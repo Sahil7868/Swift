@@ -12,15 +12,23 @@ defined('ABSPATH') or die('Hey You can not access it');
  {
       public function __construct() 
       {
+               
               add_action( 'init', array($this,'sw_init') );
-              add_shortcode( 'swift-slide',array($this,'sw_function') );
+              add_shortcode( 'swift-slide-1',array($this,'sw_function') );
+              add_action( 'init', array($this,'sw1_init') );
+              add_shortcode( 'swift-slide-2',array($this,'sw1_function') );
+              add_action( 'init', array($this,'sw2_init') );
+              add_shortcode( 'swift-slide-3',array($this,'sw2_function') );
               add_image_size( 'sw_widget', 180, 100, true);
               add_image_size( 'sw_function', 600, 280, true); 
+              add_image_size( 'sw1_function', 600, 280, true); 
+              add_image_size( 'sw2_function', 600, 280, true); 
              
              if ( is_admin() ) 
              {
                 add_action( 'load-post.php', array( $this, 'init_metabox' ) );
                 add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
+              
             }
               
      }
@@ -53,7 +61,7 @@ defined('ABSPATH') or die('Hey You can not access it');
     {
         $args = array(
               'public' => true,
-              'label' => 'Swift Images',
+              'label' => 'Swift Images Gallery-1',
               'supports' => array(
                       'title',
                       'thumbnail'
@@ -61,6 +69,36 @@ defined('ABSPATH') or die('Hey You can not access it');
                  );
               
                register_post_type('sw_images', $args);
+               
+  }
+
+      function sw1_init() 
+    {
+        $args = array(
+              'public' => true,
+              'label' => 'Swift Images Gallery-2',
+              'supports' => array(
+                      'title',
+                      'thumbnail'
+                         )
+                 );
+              
+               register_post_type('sw1_images', $args);
+               
+  }
+
+        function sw2_init() 
+    {
+        $args = array(
+              'public' => true,
+              'label' => 'Swift Images Gallery-3',
+              'supports' => array(
+                      'title',
+                      'thumbnail'
+                         )
+                 );
+              
+               register_post_type('sw2_images', $args);
                
   }
    // Register and Enqueue Nivo slider Scripts and sw_register_styles
@@ -72,10 +110,14 @@ defined('ABSPATH') or die('Hey You can not access it');
         // register
         wp_register_script('np_nivo-script', plugins_url('lib/nivo-slider/jquery.nivo.slider.js', __FILE__), array( 'jquery' ));
         wp_register_script('np_script', plugins_url('lib/script.js', __FILE__));
+         wp_register_script('np_script1', plugins_url('lib/script1.js', __FILE__));
+         wp_register_script('np_script2', plugins_url('lib/script2.js', __FILE__));
             
         // enqueue
         wp_enqueue_script('np_nivo-script');
         wp_enqueue_script('np_script');
+        wp_enqueue_script('np_script1');
+        wp_enqueue_script('np_script2');
      
       }
   }
@@ -89,6 +131,7 @@ defined('ABSPATH') or die('Hey You can not access it');
       // enqueue
       wp_enqueue_style('np_styles');
       wp_enqueue_style('np_styles_theme');
+    
   }
   // Add meta box for image position
 
@@ -102,7 +145,12 @@ defined('ABSPATH') or die('Hey You can not access it');
             $this, 
             'jpen_custom_post_order' 
             ),
-          'sw_images',
+          array(
+            $this,
+            'sw_images',
+            'sw1_images',
+            'sw2_images'
+          ),
           'side',
           'high'
         );
@@ -149,6 +197,8 @@ function jpen_custom_post_order_value( $column, $post_id )
   }
 }
 
+
+
 // fetch image and title of every custom post and display by meta_value i.e position
 function sw_function($type='sw_function',$post) 
 {
@@ -181,8 +231,67 @@ function sw_function($type='sw_function',$post)
 }
 
 
-}
+function sw1_function($type='sw1_function',$post) 
+{
+    
+    $args = array(
+        'post_type' => 'sw1_images',
+        'posts_per_page' => 10,
+        'orderby' => 'meta_value',
+        'meta_key'=>'_custom_post_order',
+        'order' => 'ASC'
+        
+    );
+    $result = '<div class="slider-wrapper theme-default">';
+    $result .= '<div id="slider1" class="nivoSlider">';
+  
  
+    //the loop
+    $loop = new WP_Query($args);
+    while ($loop->have_posts()) {
+        $loop->the_post();
+        $the_url =wp_get_attachment_image_src(get_post_thumbnail_id($post),$type);
+        $result .= '<img title="'.get_the_title().'" src="' . $the_url[0] . '" data-thumb="' . $the_url[0] . '" alt=""/>';
+    }
+    $result .= '</div>';
+    $result .= '<div id = "htmlcaption" class = "nivo-html-caption">';
+    $result .= '<strong>This</strong> is an example of a <em>HTML</em> caption with <a href = "#">a link</a>.';
+    $result .= '</div>';
+    $result .= '</div>';
+    return $result;
+}
+
+function sw2_function($type='sw2_function',$post) 
+{
+    
+    $args = array(
+        'post_type' => 'sw2_images',
+        'posts_per_page' => 10,
+        'orderby' => 'meta_value',
+        'meta_key'=>'_custom_post_order',
+        'order' => 'ASC'
+        
+    );
+    $result = '<div class="slider-wrapper theme-default">';
+    $result .= '<div id="slider2" class="nivoSlider">';
+  
+ 
+    //the loop
+    $loop = new WP_Query($args);
+    while ($loop->have_posts()) {
+        $loop->the_post();
+        $the_url =wp_get_attachment_image_src(get_post_thumbnail_id($post),$type);
+        $result .= '<img title="'.get_the_title().'" src="' . $the_url[0] . '" data-thumb="' . $the_url[0] . '" alt=""/>';
+    }
+    $result .= '</div>';
+    $result .= '<div id = "htmlcaption" class = "nivo-html-caption">';
+    $result .= '<strong>This</strong> is an example of a <em>HTML</em> caption with <a href = "#">a link</a>.';
+    $result .= '</div>';
+    $result .= '</div>';
+    return $result;
+}
+
+}
 
  if(class_exists('swiftSlide'))
  {
