@@ -9,25 +9,29 @@
  
 /* The Nivo Slider styles */
 .nivoSlider {
-	height: 500px !important;
-	width: 100% !important;
-	overflow: hidden !important;
-	position:relative !important;
+height: 500px !important;
+width: 100% !important;
+overflow: hidden !important;
+position:relative !important;
 
 }
 .nivoSlider img {
   
-	height:500px !important;
-	max-width: none !important;
-	position:absolute !important;
-}
+height:500px !important;
+max-width: none !important;
+position:absolute !important;
 
+
+}
 .nivo-main-image {
 	display: block !important; /* The Images Should be display in block */
 	position: relative !important; /* The Images will be relatively positioned*/
 	width: 100% !important;/* The Image width should be full */	
 	max-width: initial !important;
+	
+	
 }
+
 
 /* If an image is wrapped in a link */
 .nivoSlider a.nivo-imageLink {
@@ -60,7 +64,7 @@
 	z-index:5;
 }
 .nivo-box img { 
-	display:block; 
+	display: none !important; 
 }
 
 /* Caption styles */
@@ -119,4 +123,13 @@
 }
 .nivo-controlNav a.active {
 	font-weight:bold;
+}
+
+.lazy-load {
+    transition: opacity .15s;
+    opacity: 0;
+}
+
+.lazy-load.is-loaded {
+    opacity: 1;
 }
