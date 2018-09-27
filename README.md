@@ -6,7 +6,7 @@ Powerful Plugin
 
 ### Welcome to the repository
 
-Feel free to view demo [Industrial Revolution Article](http://18.188.193.109).
+Feel free to view demo [Galleries](http://18.223.126.0/).
 
 > ## *Steps* to use swift slider
 * Upload swift.zip into your wordpress plugin folder.
